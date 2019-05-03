@@ -19,13 +19,13 @@ const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
 const gStorage = new Storage({
   projectId: projectId,
 });
-const bucketName = 'uploadhermesaudio';
+const bucketName = 'hermes-jb';
 const bucket = gStorage.bucket(bucketName)
 router.get('/transcription', async function (req, res) {
   console.log(req.query)
 
   // The name for the bucket
-  const bucketName = 'uploadhermesaudio';
+  const bucketName = 'hermes-jb';
   // The name of the audio file to transcribe
   const fileName = req.query.file;
   // local file to upload
