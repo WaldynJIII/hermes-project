@@ -1,99 +1,79 @@
-# Prime Project
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
-
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
-
-## Download (Don't Clone) This Repository
-
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
-
-## Prerequisites
-
-Before you get started, make sure you have the following software installed on your computer:
-
+Hermes
+Hermes is a web-based application that helps content creators automate the process of generating different file types and sending them to multiple blog, podcast, or video platforms.
+Once users allow Hermes to connect to their Podbean and WordPress accounts, users upload an audio file, receive a transcription of their audio, edit the transcription and publish both audio and transcription files to their Podbean and WordPress account respectively. 
+ 
+Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Prerequisites
+What things you need to install the software and how to install them
+NPM install dependencies
 - [Node.js](https://nodejs.org/en/)
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
-
-Create a new database called `prime_app` and create a `user` table:
-
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
-
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
-
-## Development Setup Instructions
-
-* Run `npm install`
-* Create a `.env` file at the root of the project and paste this line into the file:
-    ```
-    SERVER_SESSION_SECRET=superDuperSecret
-    ```
-    While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm run server`
-* Run `npm run client`
-* Navigate to `localhost:3000`
-
-## Debugging
-
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
-
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
-
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
-
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+Setting Up Google Cloud Storage and Google Speech-To-Text
+- Create a Google Cloud Platform project and create a bucket. (https://cloud.google.com/storage/docs/quickstart-console)
+- Enable Cloud Storage API (https://cloud.google.com/apis/docs/enable-disable-apis).  Add GOOGLE_APPLICATION_CREDENTIALS="[PATH]" to .env file.
+- Enable Speech-To-Text API. Create a service account. Select product owner role and download private key as JSON (https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries). Add GOOGLE_CLOUD_PROJECT_ID=[project_id] to .env file.
+- Create bucket in your cloud storage (https://cloud.google.com/storage/docs/creating-buckets)
 
 
-## Production Build
+WordPress Account: 
+Obtain Wordpress client Secret: 
+1.Make a wordpress account
+https://wordpress.com/
+2. https://developer.wordpress.com/apps/
+	a.Create new application and fill in information
+	b.Redirect URL: https://your_redirect_url/wordpress/callback_wordpress
+      C. javascript origins: https://your_redirect_url/wordpress/callback_wordpress
+3. Go to your app dashboard and scroll down
+	a.in wordpress.router.js and take the oauth information and put into router
+		1.line 17: var client_id = ‘Your client id’;
+2.line 19: var redirect_uri = ‘Your redirect uri’;
+3.line 71: res.redirect(’https://your_javascript_origins/#/connect')
+4.line 100: res.redirect(’https://your_javascript_origins/#/home')
+4. In connectPage.js
+a. line 24: let wordpressRedirectUrl =       ’https://your_redirect_url/wordpress/callback_wordpress'
+b.line 25: let wordpressClientId = ‘your_client_id’
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+Then try out the links and make sure you get to the authorization page
 
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm start`
-* Navigate to `localhost:5000`
+Podbean Account
+Create a Podbean account
+https://www.podbean.com
+complete application registration
+podbean: https://developers.podbean.com/app/apply
+For Redirect URI
+https://your_url_not_localhost/podbean/callback_podbean
+Submit
+Go to manage application
+There you will find your Client ID and Client Secret
+Copy the client secret from manage app and paste in your client credentials into Heroku CLIENT_SECRET_PODBEAN=[your_client_secret]
+Go to Connect page 
+let podbeanRedirectUrl = ’https://your_url_not_localhost/podbean/callback_podbean'
+let podbeanClientID = ‘your_client_id’
+on podbean.router.js
+var client_id = ‘Your client id’;
+var redirect_uri = ‘Your redirect uri’;
+podbean.router.js line 83 change the URL to be your
+res.redirect(‘your_redirect_uri/#/connect’)
+Scroll down and put this into your post router
+podbean.router.js line 122
+This is non-functioning but this should get you the token
+   10. Push and check to make sure you can get your credentials
+   11. Check to make sure authentication process works on deployed site
 
-## Lay of the Land
+If all is set up correctly you should get a podbean token in your database
+ 
 
-* `src/` contains the React application
-* `public/` contains static assets for the client-side
-* `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-* `server/` contains the Express App
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
 
-* src/components
-  * App/App
-  * Footer/Footer
-  * Nav/Nav
-  * AboutPage/AboutPage
-  * InfoPage/InfoPage
-  * UserPage/UserPage
-  * LoginPage/LoginPage
-  * RegisterPage/RegisterPage
-  * LogOutButton/LogOutButton
-  * ProtectedRoute/ProtectedRoute
+ 
+Built With
+React.js, Wordpress Api, PodBean Api, 
+Contributing
+David Friday, Julia Sugarman, Marifel Angeles, Madison Herkowitzs, Waldyn J  Benbenek III
+ 
+Acknowledgments
+Thank you to Jon Landers for his help with UX
 
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
