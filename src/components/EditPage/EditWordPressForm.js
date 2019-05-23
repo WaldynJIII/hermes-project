@@ -6,8 +6,7 @@ import SimpleModalWrapped from './transcriptModal'
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
+
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -28,14 +27,9 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        // width: 200,
+        
     },
-    // dense: {
-    //     marginTop: 19,
-    // },
-    // menu: {
-    //     width: 200,
-    // },
+   
 });
 
 
@@ -44,26 +38,6 @@ class EditWordPressForm extends Component {
     //held in reducer and in local state and is required for the Api to work
 
     state = {
-        redirect: false,
-        date: '', //need
-        title: '', //need
-        content: '',  //need
-        excerpt: '', //need
-        slug: '', //need
-        author: '',//need
-        publicize_message: '',//need
-        status: '',//need
-        sticky: '',//need
-        password: '',//need
-        parent: '',//need
-        categories: '',//need
-       
-        featured_image: '',//need
-        media: '',//need
-        media_urls: '',//need
-        comments_open: '',//need
-        menu_order: '',//need
-        transcription: this.props.reduxStore.editReducer.transcriptReducer.transcript,
         
         
      
@@ -108,6 +82,7 @@ class EditWordPressForm extends Component {
                                     margin="normal"
                                     value={this.props.state.wordpress.blog}
                                     onChange={this.props.handleChangeW('blog')}
+                                    // curried handlechange for the blog title field
                                 />
                                       <button className='sButton' onClick={this.props.testFillBlog}>  big button   </button>
       
@@ -121,9 +96,9 @@ class EditWordPressForm extends Component {
                                     variant="outlined"
                                     margin="normal"
                                     value={this.props.state.wordpress.title}
-                                    onChange={this.props.handleChangeW('title')}g
+                                    onChange={this.props.handleChangeW('title')}
+                                    // curried handlechange for the article title field
                                 />
-                                       <button className='sButton' onClick={this.props.testFillTitle}>  big button   </button>
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
@@ -135,8 +110,8 @@ class EditWordPressForm extends Component {
                                     margin="normal"
                                     value={this.props.state.wordpress.tags}
                                     onChange={this.props.handleChangeW('tags')}
+                                    // curried handlechange for the tags text field
                                 />
-                                      <button className='sButton' onClick={this.props.testFillTags}>  big button   </button>
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
@@ -148,9 +123,9 @@ class EditWordPressForm extends Component {
                                     margin="normal"
                                     value={this.props.state.wordpress.categories}
                                     onChange={this.props.handleChangeW('categories')}
+                                    // curried handlechange for the categories text field
                                 />
 
-                                       <button className='sButton' onClick={this.props.testFillCategories}>  big button   </button> 
 
                             </Grid>
 
@@ -165,13 +140,13 @@ class EditWordPressForm extends Component {
                                     margin="normal"
                                     className={classes.textField}
                                     value={this.props.reduxStore.editReducer.transcriptReducer.transcript}
+                                    // grabs the transcription from the reduer on completion
                                     
                                 />
                             </Grid>
 
                             <Grid item xs={12}>
                             <SimpleModalWrapped/>
-                                {/* <button className="myButton" onClick={this.handleClickEdit}>EDIT TRANSCRIPTION</button> */}
                             </Grid>
         
                         </form>

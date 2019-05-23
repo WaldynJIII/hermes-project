@@ -51,7 +51,7 @@ class SimpleModal extends React.Component {
 
     return (
       <div>
-        {/* <Typography gutterBottom>Click to get the full Modal experience!</Typography> */}
+        {/* Button launches modal */}
         <Button className="editTranscription" onClick={this.handleOpen}>Edit Transcription</Button>
         <Modal
           aria-labelledby="simple-modal-title"
@@ -60,6 +60,7 @@ class SimpleModal extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
+          {/* Transcript launches inside modal */}
             <TranscriptPage handleClose={this.handleClose} />
           </div>
         </Modal>

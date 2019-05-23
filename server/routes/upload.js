@@ -1,7 +1,7 @@
 
 require('dotenv').config();
 const {Storage} = require('@google-cloud/storage');
-const bucketName = 'uploadhermesaudio';
+const bucketName = 'hermes-jb';
 
 const storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID

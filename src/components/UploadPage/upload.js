@@ -25,23 +25,9 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        // width: 200,
+        
     },
-    // inputFile: {
-    //     width: '0.1px',
-    //     height: '0.1px',
-    //     opacity: '0',
-    //     overflow: 'hidden',
-    //     position: 'absolute',
-    //     zIndex: '- 1',
-    // },
-    // inputLabel: {
-    //     fontSize: '1.25em',
-    //     fontWeight: '700',
-    //     color: 'white',
-    //     backgroundColor: 'black',
-    //     display: 'inline-block'
-    // }
+  
     
 });
 
@@ -77,11 +63,7 @@ class UploadPage extends Component {
         data.append('file', file );
         console.log('data', data);
     
-        // axios({
-        //     method: 'POST',
-        //     data: data,
-        //     url: '/googleCloud/upload'
-        // })
+       
         this.props.dispatch({type: "SEND_AUDIO", payload: data })
         this.props.dispatch({type: "UPDATE_PODBEAN_MEDIA", payload: data})
         this.props.history.push('/edit-page');
