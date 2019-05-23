@@ -12,20 +12,20 @@ import Grid from '@material-ui/core/Grid';
 
 
 class EditPage extends Component {
-    
+
     state = {
-        redirect: false,
+
         podbean: {
-        piece: this.props.reduxStore.editReducer.formReducer.podbean.piece,
-        title: this.props.reduxStore.editReducer.formReducer.podbean.title,
-        description: this.props.reduxStore.editReducer.formReducer.podbean.description,
-    },
-    wordpress: {
-        title: this.props.reduxStore.editReducer.formReducer.wordpress.title,
-        blog: this.props.reduxStore.editReducer.formReducer.wordpress.blog,
-        tags: this.props.reduxStore.editReducer.formReducer.wordpress.tags,
-        categories: this.props.reduxStore.editReducer.formReducer.wordpress.categories,
-    }
+            piece: this.props.reduxStore.editReducer.formReducer.podbean.piece,
+            title: this.props.reduxStore.editReducer.formReducer.podbean.title,
+            description: this.props.reduxStore.editReducer.formReducer.podbean.description,
+        },
+        wordpress: {
+            title: this.props.reduxStore.editReducer.formReducer.wordpress.title,
+            blog: this.props.reduxStore.editReducer.formReducer.wordpress.blog,
+            tags: this.props.reduxStore.editReducer.formReducer.wordpress.tags,
+            categories: this.props.reduxStore.editReducer.formReducer.wordpress.categories,
+        }
 
     }
     componentDidMount = () => {
@@ -33,23 +33,26 @@ class EditPage extends Component {
     }
 
     handleClick = (event) => {
-        this.props.dispatch({type: "SET_PODBEAN", payload: this.state.podbean})
-        this.props.dispatch({type: "SET_WORDPRESS", payload: this.state.wordpress})
+        // saves edit page history to the reducer and advances to the next page
+        this.props.dispatch({ type: "SET_PODBEAN", payload: this.state.podbean })
+        this.props.dispatch({ type: "SET_WORDPRESS", payload: this.state.wordpress })
         event.preventDefault();
         console.log('Next button clicked on edit page');
         this.props.history.push('/review-page');
     }
     handleChangeP = (key) => (event) => {
+        // handle change that is passed down to the Podbean component
         console.log('event happened')
         this.setState({
             ...this.state,
             podbean: {
-            ...this.state.podbean,
-            [key]: event.target.value,
+                ...this.state.podbean,
+                [key]: event.target.value,
             }
         });
     }
     handleChangeW = (key) => (event) => {
+        // handle change that is passed down to the Wordpress component
         console.log('event happened')
         this.setState({
             ...this.state,
@@ -80,18 +83,16 @@ class EditPage extends Component {
                 }
             });
     }
-    
+
 
     render() {
-        console.log(this.state.redirect)
-        //console.log(this.props.history);
-        
-        console.log(this.state.podbean, this.state.wordpress)
+
+
         return (
             <>
                 <div>
-                <StepperBar activeStep='3'></StepperBar>
-                    
+                    <StepperBar activeStep='3'></StepperBar>
+
 
                 </div>
                 <Grid
@@ -109,32 +110,38 @@ class EditPage extends Component {
                             spacing={40}
                         >
                             <Grid item xs={12}>
-                                <EditPodBeanForm testFillPiece={this.testFillPiece} testFillTitleP={this.testFillTitleP} testFillDescription={this.testFillDescription} handleChangeP={this.handleChangeP} state={this.state}/>
+                                <EditPodBeanForm handleChangeP={this.handleChangeP} state={this.state}
+                                // passes a handlechange to the podbean child component, and the current state.
+                                />
                             </Grid>
                             <Grid item xs={12}>
-                                <EditWordPressForm  testFillTitle={this.testFillTitle} testFillBlog={this.testFillBlog} testFillTags={this.testFillTags} testFillCategories={this.testFillCategories}handleChangeW={this.handleChangeW} state={this.state} />
+                                <EditWordPressForm handleChangeW={this.handleChangeW} state={this.state}
+                                // passes a handlechange to the wordpress child component, and the current state.
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
 
                     <Grid item >
-                        <Grid 
+                        <Grid
                             container
                             alignItems="center"
-                            direction="row" 
+                            direction="row"
                             spacing={16}
                         >
                             <Grid item>
-                                <button className="myButton"  onClick={this.handleCancelButton}>CANCEL</button>
+                                <button className="myButton" onClick={this.handleCancelButton}>CANCEL</button>
+                                {/* Cancel button */}
                             </Grid>
                             <Grid item>
-                                <button className="myButton"   onClick={this.handleClick}>FINISH EDITING</button>
+                                {/* button to advance to the next page */}
+                                <button className="myButton" onClick={this.handleClick}>FINISH EDITING</button>
                             </Grid>
                         </Grid>
-                        
-                        
+
+
                     </Grid>
-                    
+
                 </Grid>
 
             </>

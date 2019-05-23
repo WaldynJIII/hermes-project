@@ -25,14 +25,9 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        // width: 400,
+       
     },
-    // dense: {
-    //     marginTop: 19,
-    // },
-    // menu: {
-    //     width: 200,
-    // },
+    
 });
 
 class EditPodBeanForm extends Component {
@@ -44,34 +39,7 @@ class EditPodBeanForm extends Component {
             description: this.props.reduxState.editReducer.formReducer.podbean.description,
         }
     }
-    testFillTitle = (e) => {
-        this.setState({
-            ...this.props.state,
-            podbean: {
-                ...this.props.state.podbean,
-                title: 'All about doors',
-            }
-        })
-    }
-
-    testFillPiece = (e) => {
-        this.setState({
-            ...this.props.state,
-            podbean: {
-                ...this.props.state.podbean,
-                piece: 'Gates, do they count?',
-            }
-        })
-    }
-    testFillDescription = (e) => {
-        this.setState({
-            ...this.props.state,
-            podbean: {
-                ...this.props.state.podbean,
-                description: 'We discuss the definition of gates as they relate to doors and other portals into the home.',
-            }
-        })
-    }
+    
     handleChange = (key) => (event) => {
         console.log('event happened')
         this.setState({
@@ -131,10 +99,10 @@ class EditPodBeanForm extends Component {
                                     margin="normal"
                                     value={this.props.state.podbean.piece}
                                     onChange={this.props.handleChangeP('piece')}
+                                    // sets the state of the parent to the values of the text field using a curried prop function
 
                                 />
 
-                                <button className='sButton' onClick={this.props.testFillPiece}>   big button   </button>
 
                             </Grid>
 
@@ -148,8 +116,8 @@ class EditPodBeanForm extends Component {
                                     margin="normal"
                                     value={this.props.state.podbean.title}
                                     onChange={this.props.handleChangeP('title')}
+                                    // sets the state of the parent to the values of the text field using a curried prop function
                                 />
-                                <button className='sButton' onClick={this.props.testFillTitleP}>   big button   </button>
                             </Grid>
 
                             <Grid item xs={12}>
@@ -166,8 +134,8 @@ class EditPodBeanForm extends Component {
 
                                     value={this.props.state.podbean.description}
                                     onChange={this.props.handleChangeP('description')}
+                                    // sets the state of the parent to the values of the text field using a curried prop function
                                 />
-                                <button className='sButton' onClick={this.props.testFillDescription}>   big button   </button>
                             </Grid>
                         </form>
                     </Grid>

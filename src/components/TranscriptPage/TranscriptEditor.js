@@ -19,6 +19,7 @@ class TranscriptEditor extends Component {
     }
 
     modules = {
+        // the different modules we are using for react quill
         toolbar: [
             [{ 'header': [1, 2, false] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -28,6 +29,7 @@ class TranscriptEditor extends Component {
     }
 
     formats = [
+        // 
         'header',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
@@ -40,11 +42,12 @@ class TranscriptEditor extends Component {
             <div>
 
                 <ReactQuill theme="snow"
+                // the reactQuill component
                     value={this.props.reduxStore.editReducer.transcriptReducer.transcription}
                     modules={this.modules}
 
                     formats={this.formats}
-                    // onChange={this.handleChange}
+                    
                 >
 
                 </ReactQuill>

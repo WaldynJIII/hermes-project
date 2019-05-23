@@ -18,6 +18,7 @@ class TranscriptPage extends Component {
     handleClick = (event, text, delta, source, editor) => {
         event.preventDefault();
       this.props.dispatch({type: "SET_TRANSCRIPT", payload: this.state.text})
+    //   sets the tanscript reducer to the updated transcript
         this.props.handleClose()
     }
 
@@ -49,6 +50,7 @@ class TranscriptPage extends Component {
     handleChange=( text, delta, source, editor) => {
        
         const content = editor.getText(text);
+        // fetches the content of the editor and sets it to the current state.
         this.setState({ ...this.state,
             text: content });
         console.log(content)
