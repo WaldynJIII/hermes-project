@@ -45,10 +45,9 @@ class UploadPage extends Component {
   
 
     handleOnChange = (e) => {
-        console.log('handleOnChange');
-        console.log(e.target.files);
-        console.log(e.target.files[0]);
+        
         const file = e.target.files[0];
+        //grabs the correct file form the upload object
         console.log('file', file);
 
         this.uploadRequest(file);
@@ -60,12 +59,14 @@ class UploadPage extends Component {
         console.log('uploadRequest hit');
         
         let data = new FormData();
+        
         data.append('file', file );
+        //transforms the file into the data object
         console.log('data', data);
     
        
         this.props.dispatch({type: "SEND_AUDIO", payload: data })
-        this.props.dispatch({type: "UPDATE_PODBEAN_MEDIA", payload: data})
+        //dispatches the data to the reducers
         this.props.history.push('/edit-page');
     };
 
@@ -138,7 +139,7 @@ class UploadPage extends Component {
                             <Grid item xs={12}>
                                 
                                 <button className="myButton" onClick={this.handleCancelButton}>CANCEL</button>
-                                <input className="myButton" type="submit" value="UPLOAD" />
+                                
                                    
                             </Grid>
                             

@@ -13,13 +13,13 @@ const upload = require('./upload')
 // set up a directory where all our files will be saved
 // give the files a new identifier
 // SET STORAGE
-const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID; // You're projectId
 
 // Creates a storage client
 const gStorage = new Storage({
   projectId: projectId,
 });
-const bucketName = 'hermes-jb';
+const bucketName = 'YOUR_BUCKET_NAME'; // put the name of your google bucket here
 const bucket = gStorage.bucket(bucketName)
 router.get('/transcription', async function (req, res) {
   console.log(req.query)
@@ -61,8 +61,7 @@ router.get('/transcript', async function (req, res) {
     sampleRateHertz: 16000,
     languageCode: 'en-US',
     enableAutomaticPunctuation: true,
-    // audioChannelCount: 2,
-    // enableSeparateRecognitionPerChannel: true,
+    
   };
   const request = {
     config: config,

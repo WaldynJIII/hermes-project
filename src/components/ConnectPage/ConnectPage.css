@@ -1,34 +1,4 @@
-/* .wordpressBox{
-background-color: #DADFE1;
-position: absolute;
-width: 508px;
-height: 238px;
-left: 505px;
-top: 332px;
-border-radius: 4px;
-  color: #f8f8f8;
-  min-height: 50px;
-  min-width: 100px;
-  outline:5;
-  cursor: pointer;
-}
 
-.wordpress-connect {
-  cursor: pointer;
-  position: absolute;
-  width: 427px;
-  height: 237px;
-  left: 244px;
-  top: 210px;
-}
-
-.podbean-connect {
-  position: absolute;
-  width: 427px;
-  height: 237px;
-  left: 730px;
-  top: 210px;
-} */
 
 
 .connected{
@@ -44,7 +14,7 @@ border-radius: 4px;
 	border-radius:10px;
 	display:inline-block;
 	cursor:pointer;
-	/* font-family:roboto; */
+
 	font-size:1rem;
 	font-weight:bold;
   padding:1rem;
@@ -66,7 +36,7 @@ border-radius: 4px;
 	display:inline-block;
 	cursor:pointer;
 
-	/* font-family:roboto; */
+
 	font-size:1rem;
 	font-weight:bold;
   padding:1rem;
